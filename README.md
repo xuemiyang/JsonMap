@@ -20,7 +20,7 @@ class Person: JsonMap {
 let dict : [String : Any] = ["name":"jack", "age": 10]
 if let person = Person.mapToObj(dict: dict) {
     print("--dict mapToObj--")
-    print("dict = %@", dict)
+    print("dict = \(dict)")
     print(person)
 }
 ```
@@ -30,7 +30,7 @@ if let person = Person.mapToObj(dict: dict) {
 let arr : [[String : Any]] = [["name":"tom", "age":19], ["name":"rose", "age": 17]]
 if let persons = Person.mapToObjs(arr: arr) {
     print("--arr mapToObjs--")
-    print("arr = %@", arr)
+    print("arr = \(arr)")
     print(persons)
 }
 ```
@@ -43,7 +43,7 @@ person.age = 35
 let keyValue = person.keyValues()
 print("--keyValues--")
 print(person)
-print("keyValue = %@", keyValue)
+print("keyValue = \(keyValue)")
 ```
 
 ### 字典赋值
@@ -52,7 +52,7 @@ let dict = ["name":"111", "age": 100]
 let person = Person()
 person.setMapValuesForKeys(dict)
 print("--setMapValuesForKeys--")
-print("dict = %@", dict)
+print("dict = \(dict)")
 print(person)
 ```
 
@@ -77,7 +77,7 @@ class CustomMapPerson: Person {
 let dict = ["name2":"222", "age2":5];
 if let person = CustomMapPerson.mapToObj(dict: dict) {
     print("--CustomMapPerson--")
-    print("dict = %@", dict)
+    print("dict = \(dict)")
     print(person)
 }
 ```
@@ -94,7 +94,7 @@ class BlacklistPerson: Person {
 let dict = ["name":"333", "age":90]
 if let person = BlacklistPerson.mapToObj(dict: dict) {
     print("--BlacklistPerson--")
-    print("dict = %@", dict)
+    print("dict = \(dict)")
     print(person)
 }
 ```
@@ -111,7 +111,7 @@ class WhitelistPerson: Person {
 let dict = ["name":"888", "age":467]
 if let person = WhitelistPerson.mapToObj(dict: dict) {
     print("--WhitelistPerson--")
-    print("dict = %@", dict)
+    print("dict = \(dict)")
     print(person)
 }
 ```
@@ -141,7 +141,7 @@ let arr = [["address":"xxx", "area":100], ["address":"yyy", "area":200]]
 let dict = ["name":"ming", "age":13, "houses":arr]
 if let person = ArrayHousePerson.mapToObj(dict: dict) {
     print("--ArrayHousePerson--")
-    print("dict = %@", dict)
+    print("dict = \(dict)")
     print(person)
 }
 ```
@@ -159,7 +159,7 @@ class ArrayPerson: Person {
 let dict = ["name":"ling", "age":11, "numbers":[1,2,3]]
 if let person = ArrayPerson.mapToObj(dict: dict) {
     print("--ArrayPerson--")
-    print("dict = %@", dict)
+    print("dict = \(dict)")
     print(person)
 }
 ```
@@ -185,7 +185,7 @@ class HousePerson: Person {
 let dict = ["name":"ying", "age":19, "house":["address":"nnb", "area":170]]
 if let person = HousePerson.mapToObj(dict: dict) {
     print("--HousePerson--")
-    print("dict = %@", dict)
+    print("dict = \(dict)")
     print(person)
 }
 ```
@@ -203,7 +203,7 @@ class DictionaryPerson: Person {
 let dict = ["name":"ping", "age":27, "info":["string":"bbbb", "double":19.7]]
 if let person = DictionaryPerson.mapToObj(dict: dict) {
     print("--DictionaryPerson--")
-    print("dict = %@", dict)
+    print("dict = \(dict)")
     print(person)
 }
 ```
