@@ -522,12 +522,14 @@ class JsonMap: NSObject {
             for _ in 0..<outCount {
                 var property = JsonProperty.init()
                 guard rawP?.pointee != nil else {
+                    rawP = rawP?.successor()
                     continue
                 }
                 let p = rawP!.pointee
                 let cname = property_getName(p)
                 let str = String.init(cString: cname)
-                if blacklist.contains(str) {
+                if str == "description" || blacklist.contains(str) || (whitelist.count > 0 && !whitelist.contains(str)) {
+                    rawP = rawP?.successor()
                     continue
                 }
                 property.name = str
@@ -605,6 +607,10 @@ class JsonMap: NSObject {
     }
     
     var blacklist: [String] {
+        return []
+    }
+    
+    var whitelist: [String] {
         return []
     }
     

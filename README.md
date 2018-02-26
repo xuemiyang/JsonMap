@@ -99,6 +99,23 @@ if let person = BlacklistPerson.mapToObj(dict: dict) {
 }
 ```
 
+### 白名单
+```swift
+class WhitelistPerson: Person {
+    override var whitelist: [String] {
+        return ["age"]
+    }
+}
+```
+```swift
+let dict = ["name":"888", "age":467]
+if let person = WhitelistPerson.mapToObj(dict: dict) {
+    print("--WhitelistPerson--")
+    print("dict = %@", dict)
+    print(person)
+}
+```
+
 ### 模型数组属性
 ```swift
 class House: JsonMap {

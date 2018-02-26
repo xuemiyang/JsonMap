@@ -63,6 +63,14 @@ class ViewController: UIViewController {
             print()
         }
         
+        dict = ["name":"888", "age":467]
+        if let person = WhitelistPerson.mapToObj(dict: dict) {
+            print("--WhitelistPerson--")
+            print("dict = %@", dict)
+            print(person)
+            print()
+        }
+        
         arr = [["address":"xxx", "area":100], ["address":"yyy", "area":200]]
         dict = ["name":"ming", "age":13, "houses":arr]
         if let person = ArrayHousePerson.mapToObj(dict: dict) {

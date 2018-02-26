@@ -38,6 +38,12 @@ class BlacklistPerson: Person {
     }
 }
 
+class WhitelistPerson: Person {
+    override var whitelist: [String] {
+        return ["age"]
+    }
+}
+
 class House: JsonMap {
     @objc var address = ""
     @objc var area = 0
