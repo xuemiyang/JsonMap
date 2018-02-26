@@ -2,7 +2,7 @@
 swift json对象和模型转换工具类
 
 ## 定义JsonMap实体类
-```objc
+```swift
 class Person: JsonMap {
     @objc var name = ""
     @objc var age = 0
@@ -16,7 +16,7 @@ class Person: JsonMap {
 
 ## JsonMap的简单使用
 ### 字典转模型
-```objc
+```swift
 let dict : [String : Any] = ["name":"jack", "age": 10]
 if let person = Person.mapToObj(dict: dict) {
     print("--dict mapToObj--")
@@ -26,7 +26,7 @@ if let person = Person.mapToObj(dict: dict) {
 ```
 
 ### 数组转模型数组
-```objc
+```swift
 let arr : [[String : Any]] = [["name":"tom", "age":19], ["name":"rose", "age": 17]]
 if let persons = Person.mapToObjs(arr: arr) {
     print("--arr mapToObjs--")
@@ -36,7 +36,7 @@ if let persons = Person.mapToObjs(arr: arr) {
 ```
 
 ### 模型转字典
-```objc
+```swift
 let person = Person()
 person.name = "myName"
 person.age = 35
@@ -47,7 +47,7 @@ print("keyValue = %@", keyValue)
 ```
 
 ### 字典赋值
-```objc
+```swift
 let dict = ["name":"111", "age": 100]
 let person = Person()
 person.setMapValuesForKeys(dict)
@@ -57,7 +57,7 @@ print(person)
 ```
 
 ### 自定义映射
-```objc
+```swift
 class CustomMapPerson: Person {
     override class func map(dict: Any?) -> [String:Any]? {
         if var dict = super.map(dict: dict) {
@@ -73,7 +73,7 @@ class CustomMapPerson: Person {
     }
 }
 ```
-```objc
+```swift
 let dict = ["name2":"222", "age2":5];
 if let person = CustomMapPerson.mapToObj(dict: dict) {
     print("--CustomMapPerson--")
@@ -83,14 +83,14 @@ if let person = CustomMapPerson.mapToObj(dict: dict) {
 ```
 
 ### 黑名单
-```objc
+```swift
 class BlacklistPerson: Person {
     override var blacklist: [String] {
         return ["age"]
     }
 }
 ```
-```objc
+```swift
 let dict = ["name":"333", "age":90]
 if let person = BlacklistPerson.mapToObj(dict: dict) {
     print("--BlacklistPerson--")
@@ -100,7 +100,7 @@ if let person = BlacklistPerson.mapToObj(dict: dict) {
 ```
 
 ### 模型数组属性
-```objc
+```swift
 class House: JsonMap {
     @objc var address = ""
     @objc var area = 0
@@ -119,7 +119,7 @@ class ArrayHousePerson: Person {
     }
 }
 ```
-```objc
+```swift
 let arr = [["address":"xxx", "area":100], ["address":"yyy", "area":200]]
 let dict = ["name":"ming", "age":13, "houses":arr]
 if let person = ArrayHousePerson.mapToObj(dict: dict) {
