@@ -13,6 +13,64 @@ class ViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
+        
+        var dict : [String : Any] = ["name":"jack", "age": 10]
+        if let person = Person.mapToObj(dict: dict) {
+            print("--dict mapToObj--")
+            print("dict = %@", dict)
+            print(person)
+            print()
+        }
+        
+        var arr : [[String : Any]] = [["name":"tom", "age":19], ["name":"rose", "age": 17]]
+        if let persons = Person.mapToObjs(arr: arr) {
+            print("--arr mapToObjs--")
+            print("arr = %@", arr)
+            print(persons)
+            print()
+        }
+        
+        var person = Person()
+        person.name = "myName"
+        person.age = 35
+        let keyValue = person.keyValues()
+        print("--keyValues--")
+        print(person)
+        print("keyValue = %@", keyValue)
+        print()
+        
+        dict = ["name":"111", "age": 100]
+        person = Person()
+        person.setMapValuesForKeys(dict)
+        print("--setMapValuesForKeys--")
+        print("dict = %@", dict)
+        print(person)
+        print()
+        
+        dict = ["name2":"222", "age2":5];
+        if let person = CustomMapPerson.mapToObj(dict: dict) {
+            print("--CustomMapPerson--")
+            print("dict = %@", dict)
+            print(person)
+            print()
+        }
+        
+        dict = ["name":"333", "age":90]
+        if let person = BlacklistPerson.mapToObj(dict: dict) {
+            print("--BlacklistPerson--")
+            print("dict = %@", dict)
+            print(person)
+            print()
+        }
+        
+        arr = [["address":"xxx", "area":100], ["address":"yyy", "area":200]]
+        dict = ["name":"ming", "age":13, "houses":arr]
+        if let person = ArrayHousePerson.mapToObj(dict: dict) {
+            print("--ArrayHousePerson--")
+            print("dict = %@", dict)
+            print(person)
+            print()
+        }
     }
 
     override func didReceiveMemoryWarning() {

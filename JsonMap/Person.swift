@@ -9,5 +9,53 @@
 import UIKit
 
 class Person: JsonMap {
-
+    @objc var name = ""
+    @objc var age = 0
+    
+    override var description: String {
+        return super.description + " name=" + name + " age=" + "\(age)"
+    }
 }
+
+class CustomMapPerson: Person {
+    override class func map(dict: Any?) -> [String:Any]? {
+        if var dict = super.map(dict: dict) {
+            if let name2 = dict["name2"] as? String {
+                dict["name"] = "my name is " + name2
+            }
+            if let age2 = dict["age2"] as? Int {
+                dict["age"] = 10 + age2
+            }
+            return dict
+        }
+        return nil
+    }
+}
+
+class BlacklistPerson: Person {
+    override var blacklist: [String] {
+        return ["age"]
+    }
+}
+
+class House: JsonMap {
+    @objc var address = ""
+    @objc var area = 0
+    override var description: String {
+        return super.description + " address=" + address + " area=" + "\(area)"
+    }
+}
+
+class ArrayHousePerson: Person {
+    @objc var houses: [House] = []
+    override var arrClasses: [String : AnyClass] {
+        return ["houses":House.classForCoder()]
+    }
+    override var description: String {
+        return super.description + " houses=" + "\(houses)"
+    }
+}
+
+
+
+

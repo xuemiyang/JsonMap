@@ -500,10 +500,9 @@ class JsonMap: NSObject {
     }
     
     fileprivate var propertys: [String:JsonProperty] {
-        if let className = _className {
-            guard JsonClass.propertys[className] == nil else {
-                return JsonClass.propertys[className]!
-            }
+        let className = NSStringFromClass(classForCoder)
+        guard JsonClass.propertys[className] == nil else {
+            return JsonClass.propertys[className]!
         }
         var propertys = [String:JsonProperty]()
         var cls: AnyClass? = classForCoder
@@ -584,9 +583,7 @@ class JsonMap: NSObject {
             free(ps)
             cls = class_getSuperclass(cls)
         }
-        if let className = _className {
-            JsonClass.propertys[className] = propertys
-        }
+        JsonClass.propertys[className] = propertys
         return propertys
     }
     
