@@ -129,6 +129,67 @@ if let person = ArrayHousePerson.mapToObj(dict: dict) {
 }
 ```
 
+### 简单数组属性
+```swift
+class ArrayPerson: Person {
+    @objc var numbers: [Int] = []
+    override var description: String {
+        return super.description + " numbers=" + "\(numbers)"
+    }
+}
+```
+```swift
+let dict = ["name":"ling", "age":11, "numbers":[1,2,3]]
+if let person = ArrayPerson.mapToObj(dict: dict) {
+    print("--ArrayPerson--")
+    print("dict = %@", dict)
+    print(person)
+}
+```
+
+### 模型属性
+```swift
+class House: JsonMap {
+    @objc var address = ""
+    @objc var area = 0
+    override var description: String {
+        return super.description + " address=" + address + " area=" + "\(area)"
+    }
+}
+
+class HousePerson: Person {
+    @objc var house: House?
+    override var description: String {
+        return super.description + " house=" + String.init(describing: house)
+    }
+}
+```
+```swift
+let dict = ["name":"ying", "age":19, "house":["address":"nnb", "area":170]]
+if let person = HousePerson.mapToObj(dict: dict) {
+    print("--HousePerson--")
+    print("dict = %@", dict)
+    print(person)
+}
+```
+
+### 简单字典属性
+```swift
+class DictionaryPerson: Person {
+    @objc var info: [String:Any] = [:]
+    override var description: String {
+        return super.description + " info=" + "\(info)"
+    }
+}
+```
+```swift
+let dict = ["name":"ping", "age":27, "info":["string":"bbbb", "double":19.7]]
+if let person = DictionaryPerson.mapToObj(dict: dict) {
+    print("--DictionaryPerson--")
+    print("dict = %@", dict)
+    print(person)
+}
+```
 
 
 

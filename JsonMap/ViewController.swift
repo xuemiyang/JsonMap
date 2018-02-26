@@ -71,6 +71,30 @@ class ViewController: UIViewController {
             print(person)
             print()
         }
+        
+        dict = ["name":"ling", "age":11, "numbers":[1,2,3]]
+        if let person = ArrayPerson.mapToObj(dict: dict) {
+            print("--ArrayPerson--")
+            print("dict = %@", dict)
+            print(person)
+            print()
+        }
+        
+        dict = ["name":"ying", "age":19, "house":["address":"nnb", "area":170]]
+        if let person = HousePerson.mapToObj(dict: dict) {
+            print("--HousePerson--")
+            print("dict = %@", dict)
+            print(person)
+            print()
+        }
+        
+        dict = ["name":"ping", "age":27, "info":["string":"bbbb", "double":19.7]]
+        if let person = DictionaryPerson.mapToObj(dict: dict) {
+            print("--DictionaryPerson--")
+            print("dict = %@", dict)
+            print(person)
+            print()
+        }
     }
 
     override func didReceiveMemoryWarning() {

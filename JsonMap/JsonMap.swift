@@ -471,17 +471,26 @@ private struct JsonProperty {
                             return (true, rArr)
                         }
                     }
+                    return (value is [Any], value)
                 } else if let obj = value as? NSObject {
                     return (obj.isKind(of: cls!), value)
                 }
             } else if cls != nil {
                 if let dict = value as? [String:Any] {
                     if let obj = obj.value(forKey: name) as? NSObject {
-                        obj.setValuesForKeys(dict)
+                        if let obj = obj as? JsonMap {
+                            obj.setMapValuesForKeys(dict)
+                        } else {
+                            obj.setValuesForKeys(dict)
+                        }
                         return (true, obj)
                     } else if let cls = cls as? NSObject.Type {
                         let obj = cls.init()
-                        obj.setValuesForKeys(dict)
+                        if let obj = obj as? JsonMap {
+                            obj.setMapValuesForKeys(dict)
+                        } else {
+                            obj.setValuesForKeys(dict)
+                        }
                         return (true, obj)
                     }
                 } else if let obj = value as? NSObject {

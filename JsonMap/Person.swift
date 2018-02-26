@@ -56,6 +56,27 @@ class ArrayHousePerson: Person {
     }
 }
 
+class ArrayPerson: Person {
+    @objc var numbers: [Int] = []
+    override var description: String {
+        return super.description + " numbers=" + "\(numbers)"
+    }
+}
+
+class HousePerson: Person {
+    @objc var house: House?
+    override var description: String {
+        return super.description + " house=" + String.init(describing: house)
+    }
+}
+
+class DictionaryPerson: Person {
+    @objc var info: [String:Any] = [:]
+    override var description: String {
+        return super.description + " info=" + "\(info)"
+    }
+}
+
 
 
 
