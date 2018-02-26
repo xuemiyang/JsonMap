@@ -47,11 +47,37 @@ class ViewController: UIViewController {
         print(person)
         print()
         
-        dict = ["name2":"222", "age2":5];
+        dict = ["name":"222", "age":5]
         if let person = CustomMapPerson.mapToObj(dict: dict) {
             print("--CustomMapPerson--")
             print("dict = \(dict)")
             print(person)
+            print()
+        }
+        
+        dict = ["myName":"111", "myAge":48]
+        if let person = MapKeysPerson.mapToObj(dict: dict) {
+            print("--map--MapKeysPerson--")
+            print("dict = \(dict)")
+            print(person)
+            print()
+            let keyValue = person.keyValues()
+            print("--map--MapKeysPerson--keyValues--")
+            print(person)
+            print("keyValue = \(keyValue)")
+            print()
+        }
+        
+        dict = ["name":"111", "age":48]
+        if let person = MapKeysPerson.mapToObj(dict: dict) {
+            print("--not map--MapKeysPerson--")
+            print("dict = \(dict)")
+            print(person)
+            print()
+            let keyValue = person.keyValues()
+            print("--not map--MapKeysPerson--keyValues--")
+            print(person)
+            print("keyValue = \(keyValue)")
             print()
         }
         

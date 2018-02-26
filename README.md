@@ -61,11 +61,11 @@ print(person)
 class CustomMapPerson: Person {
     override class func map(dict: Any?) -> [String:Any]? {
         if var dict = super.map(dict: dict) {
-            if let name2 = dict["name2"] as? String {
-                dict["name"] = "my name is " + name2
+            if let name = dict["name"] as? String {
+                dict["name"] = "my name is " + name
             }
-            if let age2 = dict["age2"] as? Int {
-                dict["age"] = 10 + age2
+            if let age = dict["age"] as? Int {
+                dict["age"] = 10 + age
             }
             return dict
         }
@@ -74,11 +74,46 @@ class CustomMapPerson: Person {
 }
 ```
 ```swift
-let dict = ["name2":"222", "age2":5];
+let dict = ["name":"222", "age":5];
 if let person = CustomMapPerson.mapToObj(dict: dict) {
     print("--CustomMapPerson--")
     print("dict = \(dict)")
     print(person)
+}
+```
+
+### 自定义映射键
+```swift
+class MapKeysPerson: Person {
+    override class var mapKeys: [String:String] {
+        return ["name":"myName", "age":"myAge"]
+    }
+}
+```
+```swift
+let dict = ["myName":"111", "myAge":48]
+if let person = MapKeysPerson.mapToObj(dict: dict) {
+    print("--map--MapKeysPerson--")
+    print("dict = \(dict)")
+    print(person)
+    print()
+    let keyValue = person.keyValues()
+    print("--map--MapKeysPerson--keyValues--")
+    print(person)
+    print("keyValue = \(keyValue)")
+}
+```
+```swift
+let dict = ["name":"111", "age":48]
+if let person = MapKeysPerson.mapToObj(dict: dict) {
+    print("--not map--MapKeysPerson--")
+    print("dict = \(dict)")
+    print(person)
+    print()
+    let keyValue = person.keyValues()
+    print("--not map--MapKeysPerson--keyValues--")
+    print(person)
+    print("keyValue = \(keyValue)")
 }
 ```
 

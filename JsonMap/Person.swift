@@ -20,11 +20,11 @@ class Person: JsonMap {
 class CustomMapPerson: Person {
     override class func map(dict: Any?) -> [String:Any]? {
         if var dict = super.map(dict: dict) {
-            if let name2 = dict["name2"] as? String {
-                dict["name"] = "my name is " + name2
+            if let name = dict["name"] as? String {
+                dict["name"] = "my name is " + name
             }
-            if let age2 = dict["age2"] as? Int {
-                dict["age"] = 10 + age2
+            if let age = dict["age"] as? Int {
+                dict["age"] = 10 + age
             }
             return dict
         }
@@ -32,14 +32,20 @@ class CustomMapPerson: Person {
     }
 }
 
+class MapKeysPerson: Person {
+    override class var mapKeys: [String:String] {
+        return ["name":"myName", "age":"myAge"]
+    }
+}
+
 class BlacklistPerson: Person {
-    override var blacklist: [String] {
+    override class var blacklist: [String] {
         return ["age"]
     }
 }
 
 class WhitelistPerson: Person {
-    override var whitelist: [String] {
+    override class var whitelist: [String] {
         return ["age"]
     }
 }
@@ -54,7 +60,7 @@ class House: JsonMap {
 
 class ArrayHousePerson: Person {
     @objc var houses: [House] = []
-    override var arrClasses: [String : AnyClass] {
+    override class var arrClasses: [String : AnyClass] {
         return ["houses":House.classForCoder()]
     }
     override var description: String {

@@ -513,6 +513,7 @@ class JsonMap: NSObject {
         guard JsonClass.propertys[className] == nil else {
             return JsonClass.propertys[className]!
         }
+        let type = classForCoder as! JsonMap.Type
         var propertys = [String:JsonProperty]()
         var cls: AnyClass? = classForCoder
         while cls != nil && cls!.isSubclass(of: JsonMap.self)  {
@@ -528,7 +529,7 @@ class JsonMap: NSObject {
                 let p = rawP!.pointee
                 let cname = property_getName(p)
                 let str = String.init(cString: cname)
-                if str == "description" || blacklist.contains(str) || (whitelist.count > 0 && !whitelist.contains(str)) {
+                if str == "description" || type.blacklist.contains(str) || (type.whitelist.count > 0 && !type.whitelist.contains(str)) {
                     rawP = rawP?.successor()
                     continue
                 }
@@ -584,7 +585,7 @@ class JsonMap: NSObject {
                         } else if name == "S" {
                             property.type.formUnion(.propertyCustomSetter)
                         }
-                        property.arrClass = arrClasses[property.name]
+                        property.arrClass = type.arrClasses[property.name]
                     }
                     rawA = rawA?.successor()
                 }
@@ -603,20 +604,31 @@ class JsonMap: NSObject {
         super.init()
     }
     
-    var arrClasses: [String:AnyClass] {
+    class var arrClasses: [String:AnyClass] {
         return [:]
     }
     
-    var blacklist: [String] {
+    class var blacklist: [String] {
         return []
     }
     
-    var whitelist: [String] {
+    class var whitelist: [String] {
         return []
+    }
+    
+    class var mapKeys: [String:String] {
+        return [:]
     }
     
     class func map(dict: Any?) -> [String:Any]? {
-        if let rDict = dict as? [String:Any] {
+        if let dict = dict as? [String:Any] {
+            var rDict = dict
+            for entity in mapKeys {
+                if let _ = rDict[entity.value] {
+                    rDict[entity.key] = rDict[entity.value]
+                    rDict[entity.value] = nil
+                }
+            }
             return rDict
         }
         return nil
@@ -669,8 +681,13 @@ extension JsonMap {
     
     func keyValues() -> [String:Any] {
         var dict = [String:Any].init(minimumCapacity: propertys.count)
+        let type = classForCoder as! JsonMap.Type
         for property in propertys {
-            dict[property.key] = value(forKey: property.key)
+            if let key = type.mapKeys[property.key] {
+                dict[key] = value(forKey: property.key)
+            } else {
+                dict[property.key] = value(forKey: property.key)
+            }
         }
         return dict
     }
