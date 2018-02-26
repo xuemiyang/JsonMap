@@ -545,6 +545,7 @@ class JsonMap: NSObject {
                             if property.type.contains(.object) {
                                 let scanner = Scanner.init(string: value)
                                 guard scanner.scanString("@\"", into: nil) else {
+                                    rawA = rawA?.successor()
                                     continue
                                 }
                                 var clsName: NSString?
